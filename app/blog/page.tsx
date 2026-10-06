@@ -1,21 +1,21 @@
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Services from "@/components/Services";
-import Testimonials from "@/components/Testimonials";
+import PageBanner from "@/components/PageBanner";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function BlogPage() {
   return (
     <main className="min-h-screen bg-white text-neutral-900 font-sans selection:bg-[#00482B] selection:text-white">
       <TopBar />
       <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Testimonials />
+      <PageBanner
+        title="Blog"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Blog" },
+        ]}
+      />
       <Blog />
       <Footer />
     </main>
