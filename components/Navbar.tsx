@@ -18,7 +18,7 @@ export default function Navbar() {
     (siteData as any).categories?.PestControl || (siteData as any).PestControl || {};
   const headerData = pestControl?.sections?.Header?.variants?.PestHeader1 || {};
 
-  // 1. Dynamic Services extract from JSON
+  // Services list JSON se
   const servicesSection =
     pestControl?.sections?.Services?.variants?.PestServices1 ||
     pestControl?.sections?.ServicesGrid?.variants?.PestServicesGrid1 ||
@@ -54,14 +54,14 @@ export default function Navbar() {
   const resolvedServices =
     dynamicServicesList.length > 0 ? dynamicServicesList : defaultServices;
 
-  // 2. Build Dynamic Navigation Menu
+  // Nav menu
   const rawMenu: any[] = headerData?.menu || headerData?.navLinks || [
-    { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
-    { label: "Services", href: "/services", hasDropdown: true },
-    { label: "Blog", href: "/blog" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Contact Us", href: "/contact" },
+    { label: "HOME", href: "/" },
+    { label: "ABOUT US", href: "/about" },
+    { label: "SERVICES", href: "/services", hasDropdown: true },
+    { label: "BLOG", href: "/blog" },
+    { label: "GALLERY", href: "/gallery" },
+    { label: "CONTACT US", href: "/contact" },
   ];
 
   const menuList = rawMenu
@@ -83,17 +83,17 @@ export default function Navbar() {
       };
     });
 
-  // Reusable Social & Contact Icons Component
-  const renderSocialIcons = (isMobile = false) => (
-    <div className={`flex items-center ${isMobile ? "gap-2" : "gap-2 sm:gap-2.5"}`}>
+  // Gol green social icons
+  const renderSocialIcons = () => (
+    <div className="flex items-center gap-2 sm:gap-2.5">
       <a
         href={common?.socialLinks?.facebook || "https://facebook.com"}
         target="_blank"
         rel="noopener noreferrer"
         title="Facebook"
-        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-xs"
+        className="w-9 h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#003822] transition shadow-xs"
       >
-        <svg width="12" height="12" className="sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
         </svg>
       </a>
@@ -103,12 +103,11 @@ export default function Navbar() {
         target="_blank"
         rel="noopener noreferrer"
         title="Instagram"
-        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-xs"
+        className="w-9 h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#003822] transition shadow-xs"
       >
         <svg
-          width="12"
-          height="12"
-          className="sm:w-3.5 sm:h-3.5"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -132,12 +131,11 @@ export default function Navbar() {
         target="_blank"
         rel="noopener noreferrer"
         title="WhatsApp"
-        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-xs"
+        className="w-9 h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#003822] transition shadow-xs"
       >
         <svg
-          width="12"
-          height="12"
-          className="sm:w-3.5 sm:h-3.5"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -153,22 +151,22 @@ export default function Navbar() {
 
   return (
     <header className="bg-white sticky top-0 z-50 shadow-xs border-b border-neutral-100">
-      <div className="max-w-[1240px] mx-auto px-3 sm:px-6 h-[70px] sm:h-[74px] flex items-center justify-between">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[74px] flex items-center justify-between">
         
-        {/* Brand Logo */}
+        {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0">
           <Image
             src={headerData?.logoImage || headerData?.logo || "/logo.jpeg"}
             alt={common?.siteName || "PestControl"}
-            width={180}
-            height={45}
+            width={190}
+            height={48}
             priority
-            className="h-8 sm:h-10 md:h-11 w-auto object-contain"
+            className="h-10 sm:h-11 w-auto object-contain"
           />
         </Link>
 
-        {/* Center Navigation Links - Desktop View */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[13.5px] font-bold tracking-tight text-neutral-800">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-[13.5px] font-black tracking-tight text-neutral-800">
           {menuList.map((item) => {
             if (item.children && item.children.length > 0) {
               const isChildActive = item.children.some(
@@ -188,7 +186,7 @@ export default function Navbar() {
                     tabIndex={0}
                     className={`flex items-center gap-1.5 py-1 select-none cursor-default transition ${
                       isActive || servicesDropdownOpen
-                        ? "text-[#00482B] font-extrabold after:absolute after:bottom-3 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
+                        ? "text-[#00482B] font-black after:absolute after:bottom-3 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
                         : "hover:text-[#00482B]"
                     }`}
                   >
@@ -235,7 +233,7 @@ export default function Navbar() {
                 href={item.href}
                 className={`transition py-1 relative ${
                   isActive
-                    ? "text-[#00482B] font-extrabold after:absolute after:-bottom-2.5 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
+                    ? "text-[#00482B] font-black after:absolute after:-bottom-2.5 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
                     : "hover:text-[#00482B]"
                 }`}
               >
@@ -245,22 +243,22 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Side Controls: Desktop & Mobile View */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Social Icons (Phone + Desktop) */}
-          <div className="flex items-center">
+        {/* Right Side Icons & Mobile Controls */}
+        <div className="flex items-center gap-3">
+          {/* Desktop par sirf Social Icons dikhenge (Reference image jaisa) */}
+          <div className="hidden lg:flex items-center">
             {renderSocialIcons()}
           </div>
 
-          {/* "Get a Quote" Button (Phone + Desktop) */}
+          {/* "Get a Quote" sirf phone/tablet par dikhega, desktop par hide rahega */}
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center bg-[#00482B] text-white text-[11px] sm:text-xs md:text-[13px] font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-[#003822] transition shadow-xs whitespace-nowrap"
+            className="lg:hidden inline-flex items-center justify-center bg-[#00482B] text-white text-xs font-bold px-3.5 py-1.5 rounded-full hover:bg-[#003822] transition shadow-xs whitespace-nowrap"
           >
             Get a Quote
           </Link>
 
-          {/* Mobile Hamburger Menu Toggle Button */}
+          {/* Mobile Hamburger Toggle Button */}
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -271,9 +269,10 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu (Phone view par khulne wala menu) */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-neutral-200 px-6 py-4 flex flex-col gap-3 shadow-lg">
           {menuList.map((item) => {
@@ -333,18 +332,8 @@ export default function Navbar() {
             );
           })}
 
-          {/* Additional Action row inside open mobile drawer */}
-          <div className="pt-3 border-t border-neutral-100 flex flex-col gap-3">
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center bg-[#00482B] text-white font-bold py-2.5 rounded-full text-xs uppercase tracking-wider"
-            >
-              Get a Quote
-            </Link>
-            <div className="flex justify-center pt-1">
-              {renderSocialIcons(true)}
-            </div>
+          <div className="pt-3 border-t border-neutral-100 flex flex-col items-center gap-3">
+            {renderSocialIcons()}
           </div>
         </div>
       )}
