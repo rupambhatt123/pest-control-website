@@ -42,7 +42,6 @@ export default function Navbar() {
     };
   });
 
-  // Fallback agar JSON ke services section me items na milein
   const defaultServices = [
     { label: "Ant Control", href: "/services/ant-control" },
     { label: "Bed Bug Control", href: "/services/bed-bug-control" },
@@ -84,26 +83,93 @@ export default function Navbar() {
       };
     });
 
+  // Reusable Social & Contact Icons Component
+  const renderSocialIcons = (isMobile = false) => (
+    <div className={`flex items-center ${isMobile ? "gap-2" : "gap-2 sm:gap-2.5"}`}>
+      <a
+        href={common?.socialLinks?.facebook || "https://facebook.com"}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Facebook"
+        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-xs"
+      >
+        <svg width="12" height="12" className="sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+        </svg>
+      </a>
+
+      <a
+        href={common?.socialLinks?.instagram || "https://instagram.com"}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Instagram"
+        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-xs"
+      >
+        <svg
+          width="12"
+          height="12"
+          className="sm:w-3.5 sm:h-3.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+        </svg>
+      </a>
+
+      <a
+        href={
+          common?.socialLinks?.whatsapp ||
+          (common?.phone
+            ? `https://wa.me/${String(common.phone).replace(/[^0-9]/g, "")}`
+            : "https://whatsapp.com")
+        }
+        target="_blank"
+        rel="noopener noreferrer"
+        title="WhatsApp"
+        className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-xs"
+      >
+        <svg
+          width="12"
+          height="12"
+          className="sm:w-3.5 sm:h-3.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+        </svg>
+      </a>
+    </div>
+  );
+
   return (
-    <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-neutral-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 h-[86px] flex items-center justify-between">
+    <header className="bg-white sticky top-0 z-50 shadow-xs border-b border-neutral-100">
+      <div className="max-w-[1240px] mx-auto px-3 sm:px-6 h-[70px] sm:h-[74px] flex items-center justify-between">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center flex-shrink-0">
           <Image
             src={headerData?.logoImage || headerData?.logo || "/logo.jpeg"}
             alt={common?.siteName || "PestControl"}
-            width={220}
-            height={55}
+            width={180}
+            height={45}
             priority
-            className="h-11 sm:h-12 w-auto object-contain"
+            className="h-8 sm:h-10 md:h-11 w-auto object-contain"
           />
         </Link>
 
         {/* Center Navigation Links - Desktop View */}
-        <nav className="hidden lg:flex items-center gap-8 text-[14px] xl:text-[15px] font-bold tracking-normal text-neutral-800">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[13.5px] font-bold tracking-tight text-neutral-800">
           {menuList.map((item) => {
-            // Dropdown Menu (SERVICES)
             if (item.children && item.children.length > 0) {
               const isChildActive = item.children.some(
                 (child: any) => pathname === child.href
@@ -122,13 +188,13 @@ export default function Navbar() {
                     tabIndex={0}
                     className={`flex items-center gap-1.5 py-1 select-none cursor-default transition ${
                       isActive || servicesDropdownOpen
-                        ? "text-[#00482B] font-extrabold after:absolute after:bottom-4 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
+                        ? "text-[#00482B] font-extrabold after:absolute after:bottom-3 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
                         : "hover:text-[#00482B]"
                     }`}
                   >
                     <span>{item.label}</span>
                     <ChevronDown
-                      size={15}
+                      size={14}
                       strokeWidth={2.6}
                       className={`transition-transform duration-200 ${
                         servicesDropdownOpen ? "rotate-180 text-[#00482B]" : "text-neutral-700"
@@ -136,10 +202,8 @@ export default function Navbar() {
                     />
                   </div>
 
-                  {/* Dropdown Box on Hover */}
                   {servicesDropdownOpen && (
-                    <div className="absolute top-[76px] left-0 w-64 bg-white rounded-xl shadow-xl border border-neutral-100 py-2.5 z-50">
-                      {/* "ALL SERVICES" link */}
+                    <div className="absolute top-[68px] left-0 w-60 bg-white rounded-xl shadow-xl border border-neutral-100 py-2 z-50">
                       <Link
                         href={item.href}
                         className="block px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#00482B] bg-[#f0f8f4] hover:bg-[#e2f1ea] border-b border-neutral-100 transition"
@@ -147,8 +211,7 @@ export default function Navbar() {
                         ALL SERVICES
                       </Link>
 
-                      {/* Dynamic Services list */}
-                      <div className="max-h-[320px] overflow-y-auto">
+                      <div className="max-h-[300px] overflow-y-auto">
                         {item.children.map((child: any) => (
                           <Link
                             key={child.href}
@@ -165,7 +228,6 @@ export default function Navbar() {
               );
             }
 
-            // Normal Top Links (HOME, ABOUT US, BLOG, etc.)
             const isActive = pathname === item.href;
             return (
               <Link
@@ -183,79 +245,31 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Side: Social Media Icons */}
-        <div className="hidden lg:flex items-center gap-3">
-          <a
-            href={common?.socialLinks?.facebook || "https://facebook.com"}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Facebook"
-            className="w-10 h-10 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-sm"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-          </a>
+        {/* Right Side Controls: Desktop & Mobile View */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Social Icons (Phone + Desktop) */}
+          <div className="flex items-center">
+            {renderSocialIcons()}
+          </div>
 
-          <a
-            href={common?.socialLinks?.instagram || "https://instagram.com"}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Instagram"
-            className="w-10 h-10 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-sm"
+          {/* "Get a Quote" Button (Phone + Desktop) */}
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center bg-[#00482B] text-white text-[11px] sm:text-xs md:text-[13px] font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:bg-[#003822] transition shadow-xs whitespace-nowrap"
           >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            Get a Quote
+          </Link>
+
+          {/* Mobile Hamburger Menu Toggle Button */}
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-neutral-800 p-1.5 focus:outline-none cursor-pointer"
+              aria-label="Toggle navigation"
             >
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-            </svg>
-          </a>
-
-          <a
-            href={
-              common?.socialLinks?.whatsapp ||
-              (common?.phone
-                ? `https://wa.me/${String(common.phone).replace(/[^0-9]/g, "")}`
-                : "https://whatsapp.com")
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            title="WhatsApp"
-            className="w-10 h-10 rounded-full bg-[#00482B] text-white flex items-center justify-center hover:bg-[#063321] transition shadow-sm"
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-            </svg>
-          </a>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="lg:hidden flex items-center">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-neutral-800 p-2 focus:outline-none cursor-pointer"
-            aria-label="Toggle navigation"
-          >
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -272,7 +286,7 @@ export default function Navbar() {
                   >
                     <span>{item.label}</span>
                     <ChevronDown
-                      size={18}
+                      size={17}
                       className={`transition-transform duration-200 ${
                         mobileServicesOpen ? "rotate-180 text-[#00482B]" : "text-neutral-500"
                       }`}
@@ -318,6 +332,20 @@ export default function Navbar() {
               </Link>
             );
           })}
+
+          {/* Additional Action row inside open mobile drawer */}
+          <div className="pt-3 border-t border-neutral-100 flex flex-col gap-3">
+            <Link
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center bg-[#00482B] text-white font-bold py-2.5 rounded-full text-xs uppercase tracking-wider"
+            >
+              Get a Quote
+            </Link>
+            <div className="flex justify-center pt-1">
+              {renderSocialIcons(true)}
+            </div>
+          </div>
         </div>
       )}
     </header>

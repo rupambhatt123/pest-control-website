@@ -254,32 +254,38 @@
             }
           }
         },
-        "WhyChooseUs": {
+       "WhyChooseUs": {
           "variants": {
             "PestWhyChooseUs1": {
               "badge": "WHY CHOOSE US",
-              "title": "Why We Are Your Best Pest Defense Choice",
-              "description": "We combine industry-certified experts, safe eco-friendly methods, and rapid customer support to deliver reliable pest management.",
+              "title": "Why Choose",
+              "titleHighlight": "PestControl",
+              "description": "We deliver safe, effective and eco-friendly pest control solutions for homes, offices and commercial spaces. Our focus is on quality service, customer satisfaction and a healthier environment for you.",
+              "image": "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=1000&q=80](https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=1000&q=80)",
               "features": [
                 {
                   "id": 1,
-                  "title": "Certified Technicians",
-                  "description": "Government licensed and highly trained exterminators dedicated to safe operations."
+                  "title": "Safe & Effective Solutions",
+                  "description": "We use safe and tested methods to ensure long-lasting protection.",
+                  "icon": "shield"
                 },
                 {
                   "id": 2,
-                  "title": "Eco-Friendly Solutions",
-                  "description": "Child-safe, pet-safe, and odor-free treatments approved by regulatory standards."
+                  "title": "Experienced Professionals",
+                  "description": "Our trained team delivers reliable and high-quality pest control services.",
+                  "icon": "users"
                 },
                 {
                   "id": 3,
-                  "title": "Fast 24/7 Response",
-                  "description": "Emergency inspections and immediate assistance whenever pests disrupt your peace."
+                  "title": "Eco-Friendly Methods",
+                  "description": "We care for your health and the environment with green solutions.",
+                  "icon": "leaf"
                 },
                 {
                   "id": 4,
-                  "title": "100% Satisfaction Guarantee",
-                  "description": "Free re-treatment warranty if pests return within the contracted service guarantee period."
+                  "title": "Affordable & Transparent Pricing",
+                  "description": "High-quality services at competitive prices with no hidden costs.",
+                  "icon": "dollar"
                 }
               ]
             }
@@ -316,7 +322,7 @@
             "PestGallery1": {
               "badge": "GALLERY",
               "title": "Our Work in Action",
-              "description": "Explore photos of our professional team protecting homes, ommffices, and commercial sites.",
+              "description": "Explore photos of our professional team protecting homes, offices, and commercial sites.",
               "categories": [
                 { "label": "All Work", "value": "all" },
                 { "label": "Residential", "value": "residential" },
@@ -385,7 +391,7 @@
           "summary": "Termites can cause structural damage long before they are spotted. Learn the early indicators like hollow wood and mud tubes.",
           "date": "March 20, 2026",
           "author": "Dr. Sarah Adams",
-          "image": "https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?auto=format&fit=crop&w=800&q=80"
+          "image": "m2.jpg"
         },
         {
           "id": 2,
@@ -412,7 +418,7 @@
           "summary": "Prevent stagnant water breeding grounds and safeguard your living area from mosquito infestations.",
           "date": "June 10, 2026",
           "author": "Dr. Sarah Adams",
-          "image": "https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80"
+          "image": "m1.jpg"
         },
         {
           "id": 5,
@@ -540,7 +546,7 @@
               "location": "742 Evergreen Terrace, Springfield, OR 97477, USA",
               "phone": "+1 00000 00000",
               "email": "info@xyz.com",
-              "copyright": "© 2026 PestControl. All Rights Reserved.Powered By Lestow"
+              "copyright": "© 2026 PestControl. All Rights Reserved. Powered By Lestow."
             }
           }
         }

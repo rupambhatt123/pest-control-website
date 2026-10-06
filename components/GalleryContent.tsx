@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import siteData from "@/data/websiteData.json";
 
@@ -12,6 +12,8 @@ interface GalleryFilter {
 
 export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const pestControl =
     (siteData as any).categories?.PestControl || (siteData as any).PestControl || {};
@@ -37,18 +39,48 @@ export default function Gallery() {
   const rawItems: any[] =
     galleryData.items || galleryData.galleryItems || galleryData.images || [];
 
-  const items = rawItems.map((item, idx) => ({
-    id: item.id || idx,
-    image:
-      item.image ||
-      item.src ||
-      item.img ||
-      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
-    alt: item.alt || item.title || "Gallery Image",
-    title: item.title || item.heading || "Pest Control Service",
-    category: item.category || item.tag || "Residential",
-    description: item.description || item.body || item.desc || "",
-  }));
+  const fallbackItems = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      alt: "Outdoor Pest Treatment",
+      title: "Outdoor Yard Defense",
+      category: "Outdoor",
+      description: "Comprehensive perimeter spray to keep external garden pests away.",
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=80",
+      alt: "Kitchen Pest Inspection",
+      title: "Commercial Kitchen Sanitation",
+      category: "Commercial",
+      description: "Targeted safe treatments tailored for hospitality and food preparation zones.",
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80",
+      alt: "Residential Living Room Care",
+      title: "Residential Pest Protection",
+      category: "Residential",
+      description: "Eco-friendly, odorless treatment safe for pets and young children.",
+    },
+  ];
+
+  const items =
+    rawItems.length > 0
+      ? rawItems.map((item, idx) => ({
+          id: item.id || idx,
+          image:
+            item.image ||
+            item.src ||
+            item.img ||
+            fallbackItems[idx % fallbackItems.length].image,
+          alt: item.alt || item.title || "Gallery Image",
+          title: item.title || item.heading || "Pest Control Service",
+          category: item.category || item.tag || "Residential",
+          description: item.description || item.body || item.desc || "",
+        }))
+      : fallbackItems;
 
   const filteredItems =
     activeFilter === "all"
@@ -59,19 +91,67 @@ export default function Gallery() {
             activeFilter.toLowerCase().trim()
         );
 
+  // Phone view swipe detect karke sliding dot synchronize karega
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const index = Math.round(scrollLeft / clientWidth);
+      setActiveIndex(index);
+    }
+  };
+
+  // Dot click hone par exact card tak smooth slide karega
+  const scrollToCard = (index: number) => {
+    if (scrollRef.current) {
+      const width = scrollRef.current.clientWidth;
+      scrollRef.current.scrollTo({
+        left: width * index,
+        behavior: "smooth",
+      });
+      setActiveIndex(index);
+    }
+  };
+
+  const handleFilterChange = (filterVal: string) => {
+    setActiveFilter(filterVal);
+    setActiveIndex(0);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="bg-white py-14 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative bg-[#f8fbf9] py-14 sm:py-20 md:py-24 overflow-hidden text-neutral-900">
+      
+      {/* Background Ambient Glow & Dot Matrix Pattern */}
+      <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 -right-24 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#3fd080]/12 rounded-full blur-[100px] pointer-events-none" />
+
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#00482B 1.5px, transparent 1.5px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-8 md:mb-12">
-          <span className="bg-[#e4f4ed] text-[#00482B] text-xs sm:text-sm font-extrabold uppercase tracking-widest px-6 py-2 rounded-full mb-3 shadow-sm inline-block">
+          {/* Pill Badge */}
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[14px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
             {badge}
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#00482B] tracking-tight max-w-3xl leading-tight">
-            {title}
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black text-neutral-900 tracking-tight leading-tight">
+            Our Work in <span className="text-[#00482B]">Action</span>
           </h2>
-          <p className="text-neutral-500 text-xs sm:text-sm md:text-base max-w-2xl mt-3 leading-relaxed px-2">
+
+          {/* Description */}
+          <p className="mt-3 text-neutral-600 text-sm sm:text-base max-w-2xl leading-relaxed">
             {desc}
           </p>
         </div>
@@ -83,11 +163,11 @@ export default function Gallery() {
             return (
               <button
                 key={tab.value}
-                onClick={() => setActiveFilter(tab.value)}
-                className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all duration-200 flex-shrink-0 ${
+                onClick={() => handleFilterChange(tab.value)}
+                className={`text-xs sm:text-[13px] font-black uppercase tracking-wider px-5 py-2.5 rounded-full transition-all duration-200 flex-shrink-0 cursor-pointer ${
                   isSelected
-                    ? "bg-[#00482B] text-white shadow-md"
-                    : "bg-[#f1f5f3] text-neutral-700 hover:bg-[#e2ebe6]"
+                    ? "bg-[#00482B] text-white shadow-md scale-105"
+                    : "bg-white text-neutral-700 hover:bg-[#e4f4ec] border border-neutral-200/70"
                 }`}
               >
                 {tab.label}
@@ -96,36 +176,48 @@ export default function Gallery() {
           })}
         </div>
 
-        
-        <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-7 pb-4 md:pb-0 snap-x snap-mandatory scrollbar-none">
+        {/* 
+          Gallery Cards Wrapper:
+          - Phone: single card snap-scroll (full width)
+          - Tablet / Desktop: 2-column & 3-column grid
+        */}
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 pb-2 md:pb-0 snap-x snap-mandatory scrollbar-none"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="w-full min-w-full md:w-auto md:min-w-0 flex-shrink-0 md:flex-shrink snap-start"
+              className="w-full min-w-full md:w-auto md:min-w-0 flex-shrink-0 md:flex-shrink snap-center"
             >
-              <div className="rounded-3xl overflow-hidden shadow-md border border-neutral-100 relative h-[400px] sm:h-[430px] group transition-all duration-300 hover:shadow-xl flex flex-col justify-end">
+              <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-black/5 relative h-[390px] sm:h-[420px] group transition-all duration-300 flex flex-col justify-end p-6 sm:p-7">
+                
                 {/* Background Image */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    unoptimized
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
-                </div>
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  fill
+                  unoptimized
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+
+                {/* Dark Gradient Overlay for Contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
 
                 {/* Content Overlay */}
-                <div className="relative z-10 p-6 sm:p-7 flex flex-col gap-2">
-                  <span className="text-[#3fd080] text-[11px] sm:text-xs font-black uppercase tracking-wider">
+                <div className="relative z-20 flex flex-col gap-2">
+                  <span className="text-[#3fd080] text-xs font-black uppercase tracking-wider">
                     {item.category}
                   </span>
-                  <h3 className="text-white font-extrabold text-lg sm:text-xl leading-snug">
+                  
+                  <h3 className="text-white font-extrabold text-[18px] sm:text-[20px] leading-snug">
                     {item.title}
                   </h3>
+
                   {item.description && (
-                    <p className="text-neutral-300 text-xs sm:text-sm line-clamp-2 leading-relaxed">
+                    <p className="text-neutral-200 text-xs sm:text-[13.5px] line-clamp-2 leading-relaxed">
                       {item.description}
                     </p>
                   )}
@@ -134,6 +226,24 @@ export default function Gallery() {
             </div>
           ))}
         </div>
+
+        {/* Mobile View Sliding Indicator Dots */}
+        {filteredItems.length > 1 && (
+          <div className="flex md:hidden items-center justify-center gap-2 mt-6">
+            {filteredItems.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                onClick={() => scrollToCard(dotIdx)}
+                aria-label={`Slide to photo ${dotIdx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  activeIndex === dotIdx
+                    ? "w-6 bg-[#00482B]"
+                    : "w-2 bg-[#00482B]/25 hover:bg-[#00482B]/40"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
       </div>
     </section>
