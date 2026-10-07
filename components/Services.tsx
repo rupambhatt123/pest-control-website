@@ -55,8 +55,7 @@ export default function Services() {
   };
 
   return (
-    /* EXACT REFERENCE PADDING: Upar aur neeche barabar py-12 md:py-16 */
-    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
+    <section className="relative bg-[#f8fbf9] py-8 md:py-10 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       
       {/* Background Ambient Glow Accents */}
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[#3fd080]/15 rounded-full blur-[130px] pointer-events-none" />
@@ -72,19 +71,17 @@ export default function Services() {
         }}
       />
 
-      {/* Main Container - Horizontally & Vertically Centered */}
+      {/* Main Container */}
       <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center">
         
-        {/* Section Header - Symmetrical Spacing */}
-        <div className="flex flex-col items-center text-center mb-8 md:mb-10 max-w-3xl">
-          {/* Prominent Reference-Style Badge */}
-          <div className="inline-flex items-center gap-2 bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.22em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-6 md:mb-7 max-w-3xl">
+          <div className="inline-flex items-center gap-2 bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] px-5 py-1.5 rounded-full mb-2.5 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#00482B] animate-pulse" />
             <span>{badge}</span>
           </div>
 
-          {/* Heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight text-neutral-900 leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl md:text-[38px] font-bold tracking-tight text-neutral-900 leading-[1.25]">
             {title.includes("Pest Control") ? (
               <>
                 {title.split("Pest Control")[0]}
@@ -97,7 +94,7 @@ export default function Services() {
           </h2>
 
           {servicesData?.description && (
-            <p className="mt-3 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
+            <p className="mt-2 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
               {servicesData.description}
             </p>
           )}
@@ -132,7 +129,7 @@ export default function Services() {
                   
                   {/* Top Image */}
                   <div>
-                    <div className="relative w-full h-[210px] sm:h-[230px] overflow-hidden bg-neutral-100">
+                    <div className="relative w-full h-[200px] sm:h-[220px] overflow-hidden bg-neutral-100">
                       <Image
                         src={cardImg}
                         alt={serviceName}
@@ -143,27 +140,27 @@ export default function Services() {
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-6 sm:p-7">
-                      <h3 className="text-[20px] sm:text-[22px] font-bold text-neutral-900 tracking-tight mb-2.5 group-hover:text-[#00482B] transition-colors">
+                    <div className="p-5 sm:p-6">
+                      <h3 className="text-[19px] sm:text-[21px] font-bold text-neutral-900 tracking-tight mb-2 group-hover:text-[#00482B] transition-colors">
                         {serviceName}
                       </h3>
                       
-                      <p className="text-neutral-600 text-[14.5px] sm:text-[15.5px] font-normal leading-relaxed line-clamp-3">
+                      <p className="text-neutral-600 text-[14px] sm:text-[15px] font-normal leading-relaxed line-clamp-3">
                         {serviceDesc}
                       </p>
                     </div>
                   </div>
 
                   {/* Card Footer */}
-                  <div className="px-6 sm:px-7 pb-6 pt-0">
+                  <div className="px-5 sm:px-6 pb-5 pt-0">
                     <Link
                       href={`/services/${serviceSlug}`}
-                      className="inline-flex items-center gap-2 text-[14.5px] sm:text-[15px] font-bold text-[#00482B] group-hover:text-[#28a760] transition-colors"
+                      className="inline-flex items-center gap-2 text-[14px] sm:text-[14.5px] font-bold text-[#00482B] group-hover:text-[#28a760] transition-colors"
                     >
                       <span>Learn More</span>
                       <ArrowRight
-                        size={16}
-                        strokeWidth={2.5}
+                        size={15}
+                        strokeWidth={2.4}
                         className="group-hover:translate-x-1.5 transition-transform"
                       />
                     </Link>
@@ -177,7 +174,7 @@ export default function Services() {
 
         {/* Mobile Pagination Dots */}
         {items.length > 1 && (
-          <div className="flex md:hidden items-center justify-center gap-2 mt-6">
+          <div className="flex md:hidden items-center justify-center gap-2 mt-4">
             {items.map((_, dotIdx) => (
               <button
                 key={dotIdx}

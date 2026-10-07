@@ -51,8 +51,7 @@ export default function ContactContent() {
   };
 
   return (
-    <section className="bg-white py-16 px-6 md:px-12 text-neutral-900">
-      <div className="max-w-7xl mx-auto flex flex-col gap-16">
+<section className="bg-white py-10 md:py-12 px-5 sm:px-8 md:px-12 text-neutral-900">      <div className="max-w-7xl mx-auto flex flex-col gap-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5 flex flex-col gap-8">
             <div>

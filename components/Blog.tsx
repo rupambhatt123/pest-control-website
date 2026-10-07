@@ -126,7 +126,7 @@ export default function Blog() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
+    <section className="relative bg-[#f8fbf9] py-8 md:py-10 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -right-24 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#3fd080]/12 rounded-full blur-[100px] pointer-events-none" />
@@ -140,12 +140,12 @@ export default function Blog() {
       />
 
       <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center px-4 sm:px-6">
-        <div className="flex flex-col items-center text-center mb-8 md:mb-10 max-w-3xl">
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
+        <div className="flex flex-col items-center text-center mb-5 md:mb-6 max-w-3xl">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] px-5 py-1.5 rounded-full mb-2.5 shadow-xs">
             {badge}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight text-neutral-900 leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl md:text-[38px] font-bold tracking-tight text-neutral-900 leading-[1.25]">
             {title.includes("Pest Control") ? (
               <>
                 {title.split("Pest Control")[0]}
@@ -157,7 +157,7 @@ export default function Blog() {
             )}
           </h2>
 
-          <p className="mt-3 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
+          <p className="mt-2 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
             {desc}
           </p>
         </div>
@@ -165,7 +165,7 @@ export default function Blog() {
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="w-full flex gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-none"
+          className="w-full flex gap-6 overflow-x-auto pb-2 pt-1 snap-x snap-mandatory scrollbar-none"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {posts.map((post, idx) => {
@@ -179,7 +179,7 @@ export default function Blog() {
               >
                 <Link
                   href={postLink}
-                  className="group relative rounded-3xl overflow-hidden h-[410px] sm:h-[430px] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-7 border border-black/5 block"
+                  className="group relative rounded-3xl overflow-hidden h-[390px] sm:h-[410px] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-7 border border-black/5 block"
                 >
                   <Image
                     src={post.image || fallbackPosts[idx % fallbackPosts.length].image!}
@@ -192,17 +192,17 @@ export default function Blog() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10" />
 
                   <div className="relative z-20 flex flex-col justify-end w-full">
-                    <h3 className="text-white text-[19px] sm:text-[21px] font-black leading-snug tracking-tight mb-4 group-hover:text-[#3fd080] transition-colors line-clamp-3">
+                    <h3 className="text-white text-[18px] sm:text-[20px] font-bold leading-snug tracking-tight mb-3.5 group-hover:text-[#3fd080] transition-colors line-clamp-3">
                       {post.title}
                     </h3>
 
-                    <div className="w-full h-[1px] bg-white/20 mb-3.5" />
+                    <div className="w-full h-[1px] bg-white/20 mb-3" />
 
-                    <div className="inline-flex items-center gap-2 text-sm sm:text-[14.5px] font-bold text-white group-hover:text-[#3fd080] transition-colors">
+                    <div className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-[#3fd080] transition-colors">
                       <span>Read More</span>
                       <ArrowRight
-                        size={16}
-                        strokeWidth={2.5}
+                        size={15}
+                        strokeWidth={2.4}
                         className="group-hover:translate-x-1.5 transition-transform"
                       />
                     </div>
@@ -214,7 +214,7 @@ export default function Blog() {
         </div>
 
         {dotsCount > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-6">
+          <div className="flex items-center justify-center gap-2 mt-4">
             {Array.from({ length: dotsCount }).map((_, dotIdx) => (
               <button
                 key={dotIdx}
@@ -222,8 +222,8 @@ export default function Blog() {
                 aria-label={`Slide to page ${dotIdx + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   activeIndex === dotIdx
-                    ? "w-7 bg-[#00482B]"
-                    : "w-2.5 bg-[#00482B]/20 hover:bg-[#00482B]/40"
+                    ? "w-6 bg-[#00482B]"
+                    : "w-2 bg-[#00482B]/20 hover:bg-[#00482B]/40"
                 }`}
               />
             ))}

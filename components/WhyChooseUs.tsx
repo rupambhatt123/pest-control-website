@@ -15,7 +15,7 @@ import siteData from "@/data/websiteData.json";
 
 // Dynamic icon mapper JSON features ke liye
 const renderFeatureIcon = (index: number, iconName?: string) => {
-  const iconProps = { className: "w-6 h-6 text-[#00482B]", strokeWidth: 2.2 };
+  const iconProps = { className: "w-5 h-5 text-[#00482B]", strokeWidth: 2.2 };
   
   if (iconName) {
     const lower = iconName.toLowerCase();
@@ -27,7 +27,6 @@ const renderFeatureIcon = (index: number, iconName?: string) => {
     if (lower.includes("award") || lower.includes("satisfaction") || lower.includes("guarantee")) return <Award {...iconProps} />;
   }
 
-  // Fallback by index matching reference layout
   const defaultIcons = [
     <ShieldCheck key="0" {...iconProps} />,
     <Users key="1" {...iconProps} />,
@@ -41,7 +40,6 @@ const renderFeatureIcon = (index: number, iconName?: string) => {
 };
 
 export default function WhyChooseUs() {
-  // 1. Direct JSON extraction
   const pestControl =
     (siteData as any).categories?.PestControl || (siteData as any).PestControl || {};
   const whyData =
@@ -50,7 +48,6 @@ export default function WhyChooseUs() {
     pestControl?.sections?.Features?.variants?.PestFeatures1 ||
     {};
 
-  // Dynamic headers & text from JSON
   const badge = whyData.pretitle || whyData.badge || "WHY CHOOSE US";
   const title = whyData.title || "Why Choose";
   const titleHighlight = whyData.titleHighlight || " ";
@@ -60,13 +57,11 @@ export default function WhyChooseUs() {
     whyData.subtitle ||
     "We deliver safe, effective and eco-friendly pest control solutions for homes, offices and commercial spaces. Our focus is on quality service, customer satisfaction and a healthier environment for you.";
 
-  // Dynamic image from JSON
   const image =
     whyData.image ||
     whyData.imageUrl ||
     "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=80";
 
-  // Fallback 4 items agar JSON empty ho
   const fallbackFeatures = [
     {
       title: "Safe & Effective Solutions",
@@ -86,7 +81,6 @@ export default function WhyChooseUs() {
     },
   ];
 
-  // Dynamic items array from JSON
   const rawItems: any[] =
     whyData.items || whyData.features || whyData.reasons || [];
 
@@ -104,13 +98,12 @@ export default function WhyChooseUs() {
       : fallbackFeatures;
 
   return (
-    <section className="relative bg-[#f8fbf9] pt-2 sm:pt-4 pb-14 md:pb-16 text-neutral-900 overflow-hidden">
-      {/* --- BACKGROUND EFFECTS (Glow & Dot Matrix) --- */}
-      {/* 1. Ambient Glow Accents */}
+    <section className="relative bg-[#f8fbf9] py-8 md:py-10 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
+      {/* Background Glow Accents */}
       <div className="absolute -top-24 right-1/4 w-[500px] h-[350px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute -bottom-24 left-10 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       
-      {/* 2. Dot Matrix Grid Pattern */}
+      {/* Dot Matrix Grid */}
       <div
         className="absolute inset-0 opacity-[0.06] pointer-events-none"
         style={{
@@ -119,47 +112,36 @@ export default function WhyChooseUs() {
         }}
       />
 
-      {/* Container aligned to max-w-[1240px] */}
       <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6">
-        
-        {/* Split Grid: Left Content (7 cols) + Right Image (5 cols) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
-          {/* Left Column: Heading, Subtitle & 2x2 Feature Grid */}
+          {/* Left Column */}
           <div className="lg:col-span-7 flex flex-col items-start">
-            
-            {/* Dynamic Pill Badge */}
-            <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-4 shadow-xs">
+            <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
               {badge}
             </div>
 
-            {/* Left-Aligned Heading */}
-            <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight leading-tight text-neutral-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-[38px] font-bold tracking-tight leading-tight text-neutral-900 mb-3">
               {title} <span className="text-[#00482B]">{titleHighlight}</span>
             </h2>
 
-            {/* Dynamic Description Paragraph */}
-            <p className="text-neutral-600 text-[14.5px] sm:text-[15.5px] leading-relaxed max-w-xl mb-8 font-normal">
+            <p className="text-neutral-600 text-[14px] sm:text-[15px] leading-relaxed max-w-xl mb-5 font-normal">
               {description}
             </p>
 
-            {/* Subtle Divider Line */}
-            <div className="w-full h-[1px] bg-neutral-200/80 mb-8" />
+            <div className="w-full h-[1px] bg-neutral-200/80 mb-5" />
 
-            {/* 2x2 Features Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-7 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5 w-full">
               {features.map((feat: any, idx: number) => (
-                <div key={idx} className="flex items-start gap-4">
-                  {/* Mint Icon Container */}
-                  <div className="w-13 h-13 rounded-2xl bg-[#e4f4ec] flex items-center justify-center flex-shrink-0">
+                <div key={idx} className="flex items-start gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-[#e4f4ec] flex items-center justify-center flex-shrink-0">
                     {renderFeatureIcon(idx, feat.iconName)}
                   </div>
-                  {/* Text Details */}
                   <div>
-                    <h3 className="text-[16px] sm:text-[17px] font-bold text-neutral-900 mb-1 leading-snug">
+                    <h3 className="text-[15px] sm:text-[16px] font-bold text-neutral-900 mb-0.5 leading-snug">
                       {feat.title}
                     </h3>
-                    <p className="text-neutral-600 text-[13px] sm:text-[13.5px] leading-relaxed font-normal">
+                    <p className="text-neutral-600 text-[12.5px] sm:text-[13px] leading-relaxed font-normal">
                       {feat.desc}
                     </p>
                   </div>
@@ -169,9 +151,9 @@ export default function WhyChooseUs() {
 
           </div>
 
-          {/* Right Column: Dynamic Image with Reference Borders */}
+          {/* Right Column: Image */}
           <div className="lg:col-span-5 w-full">
-            <div className="relative w-full h-[360px] sm:h-[430px] md:h-[480px] rounded-3xl overflow-hidden shadow-xs border border-neutral-100">
+            <div className="relative w-full h-[330px] sm:h-[390px] md:h-[440px] rounded-3xl overflow-hidden shadow-xs border border-neutral-100">
               <Image
                 src={image}
                 alt={title || "Pest Control"}
@@ -184,7 +166,6 @@ export default function WhyChooseUs() {
           </div>
 
         </div>
-
       </div>
     </section>
   );

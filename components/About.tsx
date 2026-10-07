@@ -29,7 +29,7 @@ export default function About() {
     "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80";
 
   return (
-    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
+    <section className="relative bg-[#f8fbf9] py-8 md:py-10 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       <div className="absolute -top-24 -right-24 w-[520px] h-[520px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-[480px] h-[480px] bg-[#00482B]/10 rounded-full blur-[110px] pointer-events-none" />
 
@@ -41,9 +41,9 @@ export default function About() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
         <div className="lg:col-span-6 w-full">
-          <div className="relative w-full h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden shadow-xs border border-neutral-100">
+          <div className="relative w-full h-[320px] sm:h-[380px] md:h-[420px] rounded-3xl overflow-hidden shadow-xs border border-neutral-100">
             <Image
               src={image}
               alt="Pest Control Specialist"
@@ -56,30 +56,30 @@ export default function About() {
         </div>
 
         <div className="lg:col-span-6 flex flex-col items-start">
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-4 shadow-xs">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
             {badge}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black text-neutral-900 tracking-tight leading-tight mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-[38px] font-bold text-neutral-900 tracking-tight leading-tight mb-3">
             {title} <br className="hidden sm:inline" />
             <span className="text-[#00482B]">{titleHighlight}</span>
           </h2>
 
-          <p className="text-neutral-900 font-bold text-[15px] sm:text-[16.5px] leading-snug mb-3">
+          <p className="text-neutral-900 font-semibold text-[15px] sm:text-[16px] leading-snug mb-2.5">
             {subtitle}
           </p>
 
-          <p className="text-neutral-600 text-[14.5px] sm:text-[15.5px] leading-relaxed mb-6 font-normal">
+          <p className="text-neutral-600 text-[14px] sm:text-[15px] leading-relaxed mb-5 font-normal">
             {description}
           </p>
 
-          <div className="flex flex-col gap-3 w-full">
+          <div className="flex flex-col gap-2.5 w-full">
             {highlights.map((item, idx) => (
               <div key={idx} className="flex items-center gap-3">
                 <div className="w-5 h-5 rounded-full bg-[#00482B] flex items-center justify-center flex-shrink-0 text-white shadow-xs">
                   <Check size={12} strokeWidth={3.5} />
                 </div>
-                <span className="text-[14px] sm:text-[15px] font-semibold text-neutral-800">
+                <span className="text-[14px] sm:text-[14.5px] font-medium text-neutral-800">
                   {item}
                 </span>
               </div>

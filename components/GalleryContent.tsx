@@ -119,7 +119,7 @@ export default function Gallery() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">      
+    <section className="relative bg-[#f8fbf9] py-8 md:py-10 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -right-24 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#3fd080]/12 rounded-full blur-[100px] pointer-events-none" />
@@ -134,28 +134,30 @@ export default function Gallery() {
 
       <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center">
         
-        <div className="flex flex-col items-center text-center mb-6 sm:mb-8 max-w-3xl">
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
+        {/* Header Section */}
+        <div className="flex flex-col items-center text-center mb-5 sm:mb-6 max-w-3xl">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] px-5 py-1.5 rounded-full mb-2.5 shadow-xs">
             {badge}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black text-neutral-900 tracking-tight leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl md:text-[38px] font-bold text-neutral-900 tracking-tight leading-[1.25]">
             Our Work in <span className="text-[#00482B]">Action</span>
           </h2>
 
-          <p className="mt-3 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
+          <p className="mt-2 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
             {desc}
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-2 md:pb-0 justify-center scrollbar-none mb-8 md:mb-10 w-full px-2">
+        {/* Filter Pills */}
+        <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-2 md:pb-0 justify-center scrollbar-none mb-6 md:mb-7 w-full px-2">
           {filters.map((tab) => {
             const isSelected = activeFilter === tab.value;
             return (
               <button
                 key={tab.value}
                 onClick={() => handleFilterChange(tab.value)}
-                className={`text-xs sm:text-[13px] font-black uppercase tracking-wider px-5 py-2.5 rounded-full transition-all duration-200 flex-shrink-0 cursor-pointer ${
+                className={`text-xs sm:text-[13px] font-bold uppercase tracking-wider px-4 py-2 sm:px-5 sm:py-2.5 rounded-full transition-all duration-200 flex-shrink-0 cursor-pointer ${
                   isSelected
                     ? "bg-[#00482B] text-white shadow-md scale-105"
                     : "bg-white text-neutral-700 hover:bg-[#e4f4ec] border border-neutral-200/70"
@@ -167,6 +169,7 @@ export default function Gallery() {
           })}
         </div>
 
+        {/* Image Grid / Slider */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
@@ -178,7 +181,7 @@ export default function Gallery() {
               key={item.id}
               className="w-full min-w-full md:w-auto md:min-w-0 flex-shrink-0 md:flex-shrink snap-center"
             >
-              <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-black/5 relative h-[390px] sm:h-[420px] group transition-all duration-300 flex flex-col justify-end p-6 sm:p-7">
+              <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-black/5 relative h-[380px] sm:h-[400px] group transition-all duration-300 flex flex-col justify-end p-6 sm:p-7">
                 <Image
                   src={item.image}
                   alt={item.alt}
@@ -189,17 +192,17 @@ export default function Gallery() {
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
 
-                <div className="relative z-20 flex flex-col gap-2">
-                  <span className="text-[#3fd080] text-xs font-black uppercase tracking-wider">
+                <div className="relative z-20 flex flex-col gap-1.5">
+                  <span className="text-[#3fd080] text-xs font-bold uppercase tracking-wider">
                     {item.category}
                   </span>
                   
-                  <h3 className="text-white font-extrabold text-[18px] sm:text-[20px] leading-snug">
+                  <h3 className="text-white font-bold text-[18px] sm:text-[20px] leading-snug">
                     {item.title}
                   </h3>
 
                   {item.description && (
-                    <p className="text-neutral-200 text-xs sm:text-[13.5px] line-clamp-2 leading-relaxed">
+                    <p className="text-neutral-200 text-xs sm:text-[13px] line-clamp-2 leading-relaxed font-normal">
                       {item.description}
                     </p>
                   )}
@@ -209,8 +212,9 @@ export default function Gallery() {
           ))}
         </div>
 
+        {/* Mobile Indicator Dots */}
         {filteredItems.length > 1 && (
-          <div className="flex md:hidden items-center justify-center gap-2 mt-6">
+          <div className="flex md:hidden items-center justify-center gap-2 mt-4">
             {filteredItems.map((_, dotIdx) => (
               <button
                 key={dotIdx}

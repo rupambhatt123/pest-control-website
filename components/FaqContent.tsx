@@ -23,8 +23,7 @@ export default function FaqContent() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] pt-4 sm:pt-6 md:pt-8 pb-16 px-6 md:px-12 text-neutral-900 overflow-visible">
-      {/* Background Dot Matrix Pattern & Ambient Glow */}
+<section className="relative bg-[#f8fbf9] py-10 md:py-12 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-visible">      {/* Background Dot Matrix Pattern & Ambient Glow */}
       <div className="absolute top-0 right-10 w-[450px] h-[350px] bg-[#3fd080]/10 rounded-full blur-[120px] pointer-events-none" />
       <div
         className="absolute inset-0 opacity-[0.05] pointer-events-none"

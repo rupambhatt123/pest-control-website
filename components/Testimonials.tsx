@@ -72,7 +72,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">      
+    <section className="relative bg-[#f8fbf9] py-8 md:py-10 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -left-20 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       
@@ -86,12 +86,13 @@ export default function Testimonials() {
 
       <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center">
         
-        <div className="flex flex-col items-center text-center mb-8 md:mb-10 max-w-3xl">
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
+        {/* Header Section */}
+        <div className="flex flex-col items-center text-center mb-5 md:mb-6 max-w-3xl">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] px-5 py-1.5 rounded-full mb-2.5 shadow-xs">
             {badge}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight text-neutral-900 leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl md:text-[38px] font-bold tracking-tight text-neutral-900 leading-[1.25]">
             {title.includes("Clients Say") ? (
               <>
                 {title.split("Clients Say")[0]}
@@ -103,6 +104,7 @@ export default function Testimonials() {
           </h2>
         </div>
 
+        {/* Testimonial Cards */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
@@ -114,14 +116,14 @@ export default function Testimonials() {
               key={idx}
               className="w-full min-w-full md:w-auto md:min-w-0 flex-shrink-0 md:flex-shrink snap-center"
             >
-              <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-neutral-100 flex flex-col justify-between h-full min-h-[310px]">
-                <p className="text-neutral-700 text-[16px] sm:text-[18px] leading-[1.7] font-medium mb-8">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-neutral-100 flex flex-col justify-between h-full min-h-[290px]">
+                <p className="text-neutral-700 text-[15px] sm:text-[17px] leading-[1.65] font-medium mb-6">
                   {item.content}
                 </p>
 
-                <div className="pt-6 border-t border-neutral-100 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-[#00482B] flex-shrink-0">
+                <div className="pt-5 border-t border-neutral-100 flex items-center justify-between">
+                  <div className="flex items-center gap-3.5">
+                    <div className="relative w-12 h-12 sm:w-13 sm:h-13 rounded-full overflow-hidden border-2 border-[#00482B] flex-shrink-0">
                       <Image
                         src={item.image}
                         alt={item.name}
@@ -132,21 +134,21 @@ export default function Testimonials() {
                     </div>
 
                     <div>
-                      <h4 className="text-[17px] sm:text-[19px] font-bold text-neutral-900 leading-tight mb-1">
+                      <h4 className="text-[16px] sm:text-[18px] font-bold text-neutral-900 leading-tight mb-1">
                         {item.name}
                       </h4>
-                      <p className="text-[13.5px] sm:text-[15px] font-semibold text-[#00482B] mb-1.5">
+                      <p className="text-[13px] sm:text-[14px] font-semibold text-[#00482B] mb-1">
                         {item.role}
                       </p>
                       <div className="flex items-center gap-1 text-[#f5a623]">
                         {Array.from({ length: item.rating }).map((_, starIdx) => (
-                          <Star key={starIdx} size={16} fill="currentColor" stroke="none" />
+                          <Star key={starIdx} size={15} fill="currentColor" stroke="none" />
                         ))}
                       </div>
                     </div>
                   </div>
 
-                  <span className="text-[#a8d6bf] font-serif text-5xl sm:text-6xl leading-none select-none font-bold">
+                  <span className="text-[#a8d6bf] font-serif text-4xl sm:text-5xl leading-none select-none font-bold">
                     ”
                   </span>
                 </div>
@@ -155,8 +157,9 @@ export default function Testimonials() {
           ))}
         </div>
 
+        {/* Mobile Indicator Dots */}
         {items.length > 1 && (
-          <div className="flex md:hidden items-center justify-center gap-2 mt-6">
+          <div className="flex md:hidden items-center justify-center gap-2 mt-4">
             {items.map((_, dotIdx) => (
               <button
                 key={dotIdx}
