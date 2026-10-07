@@ -29,15 +29,10 @@ export default function About() {
     "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80";
 
   return (
-    <section className="relative bg-[#f8fbf9] py-14 md:py-20 text-neutral-900 overflow-hidden">
-      {/* --- BACKGROUND EFFECTS (Glow & Dot Matrix Pattern) --- */}
-      {/* 1. Top-Right Soft Ambient Green Glow */}
+    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       <div className="absolute -top-24 -right-24 w-[520px] h-[520px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* 2. Bottom-Left Dark-Green Ambient Accent */}
       <div className="absolute -bottom-24 -left-24 w-[480px] h-[480px] bg-[#00482B]/10 rounded-full blur-[110px] pointer-events-none" />
 
-      {/* 3. Dot Matrix Grid Pattern */}
       <div
         className="absolute inset-0 opacity-[0.06] pointer-events-none"
         style={{
@@ -47,8 +42,6 @@ export default function About() {
       />
 
       <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        
-        {/* Left Side: Image with Reference Dimensions */}
         <div className="lg:col-span-6 w-full">
           <div className="relative w-full h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden shadow-xs border border-neutral-100">
             <Image
@@ -63,7 +56,6 @@ export default function About() {
         </div>
 
         <div className="lg:col-span-6 flex flex-col items-start">
-          
           <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-4 shadow-xs">
             {badge}
           </div>
@@ -77,7 +69,6 @@ export default function About() {
             {subtitle}
           </p>
 
-          
           <p className="text-neutral-600 text-[14.5px] sm:text-[15.5px] leading-relaxed mb-6 font-normal">
             {description}
           </p>
@@ -94,9 +85,7 @@ export default function About() {
               </div>
             ))}
           </div>
-
         </div>
-
       </div>
     </section>
   );

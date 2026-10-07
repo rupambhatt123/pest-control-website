@@ -14,9 +14,9 @@ export default function Testimonials() {
     {};
 
   const badge = testimonialData.badge || "TESTIMONIALS";
+  const title = testimonialData.title || "What Our Clients Say";
 
-  // Exact reference items with photos
-  const items = [
+  const fallbackItems = [
     {
       name: "Rohit Sharma",
       role: "Home Owner",
@@ -35,10 +35,23 @@ export default function Testimonials() {
     },
   ];
 
+  const rawItems: any[] =
+    testimonialData.items || testimonialData.reviews || testimonialData.testimonials || [];
+
+  const items =
+    rawItems.length > 0
+      ? rawItems.map((item, idx) => ({
+          name: item.name || item.author || fallbackItems[idx % fallbackItems.length].name,
+          role: item.role || item.designation || fallbackItems[idx % fallbackItems.length].role,
+          rating: item.rating || 5,
+          image: item.image || item.avatar || fallbackItems[idx % fallbackItems.length].image,
+          content: item.content || item.review || item.message || item.text || fallbackItems[idx % fallbackItems.length].content,
+        }))
+      : fallbackItems;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Mobile swipe par active dot detect karega
   const handleScroll = () => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -47,7 +60,6 @@ export default function Testimonials() {
     }
   };
 
-  // Dot click karne par specific card par slide karega
   const scrollToCard = (index: number) => {
     if (scrollRef.current) {
       const width = scrollRef.current.clientWidth;
@@ -60,9 +72,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] py-14 md:py-20 text-neutral-900 overflow-hidden">
-      
-      {/* Background Ambient Glow & Dot Matrix */}
+    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">      
       <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -left-20 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       
@@ -74,29 +84,29 @@ export default function Testimonials() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-9 md:mb-12">
-          {/* TESTIMONIALS BADGE */}
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-sm sm:text-[15px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-4 shadow-xs">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-10 max-w-3xl">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
             {badge}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight text-neutral-900 leading-tight">
-            What Our <span className="text-[#00482B]">Clients Say</span>
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight text-neutral-900 leading-[1.2]">
+            {title.includes("Clients Say") ? (
+              <>
+                {title.split("Clients Say")[0]}
+                <span className="text-[#00482B]">Clients Say</span>
+              </>
+            ) : (
+              title
+            )}
           </h2>
         </div>
 
-        {/* 
-          Cards Wrapper:
-          - Mobile (Phone): Horizontal scroll snap, 1 card focus (100% width)
-          - Desktop: 2-card grid (md:grid-cols-2)
-        */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto md:grid md:grid-cols-2 gap-6 pb-2 md:pb-0 snap-x snap-mandatory scrollbar-none"
+          className="w-full flex overflow-x-auto md:grid md:grid-cols-2 gap-6 pb-2 md:pb-0 snap-x snap-mandatory scrollbar-none"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {items.map((item, idx) => (
@@ -105,12 +115,10 @@ export default function Testimonials() {
               className="w-full min-w-full md:w-auto md:min-w-0 flex-shrink-0 md:flex-shrink snap-center"
             >
               <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-neutral-100 flex flex-col justify-between h-full min-h-[310px]">
-                {/* Review Text */}
                 <p className="text-neutral-700 text-[16px] sm:text-[18px] leading-[1.7] font-medium mb-8">
                   {item.content}
                 </p>
 
-                {/* Bottom Author Row */}
                 <div className="pt-6 border-t border-neutral-100 flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-[#00482B] flex-shrink-0">
@@ -138,7 +146,6 @@ export default function Testimonials() {
                     </div>
                   </div>
 
-                  {/* Double Quote Symbol */}
                   <span className="text-[#a8d6bf] font-serif text-5xl sm:text-6xl leading-none select-none font-bold">
                     ”
                   </span>
@@ -148,21 +155,22 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* Mobile View Sliding Dots (Desktop par hide rahega) */}
-        <div className="flex md:hidden items-center justify-center gap-2 mt-6">
-          {items.map((_, dotIdx) => (
-            <button
-              key={dotIdx}
-              onClick={() => scrollToCard(dotIdx)}
-              aria-label={`Slide to card ${dotIdx + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                activeIndex === dotIdx
-                  ? "w-6 bg-[#00482B]"
-                  : "w-2 bg-[#00482B]/25 hover:bg-[#00482B]/40"
-              }`}
-            />
-          ))}
-        </div>
+        {items.length > 1 && (
+          <div className="flex md:hidden items-center justify-center gap-2 mt-6">
+            {items.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                onClick={() => scrollToCard(dotIdx)}
+                aria-label={`Slide to card ${dotIdx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  activeIndex === dotIdx
+                    ? "w-6 bg-[#00482B]"
+                    : "w-2 bg-[#00482B]/25 hover:bg-[#00482B]/40"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
       </div>
     </section>

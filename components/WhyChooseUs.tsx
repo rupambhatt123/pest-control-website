@@ -104,7 +104,7 @@ export default function WhyChooseUs() {
       : fallbackFeatures;
 
   return (
-    <section className="relative bg-[#f8fbf9] py-14 md:py-20 text-neutral-900 overflow-hidden">
+    <section className="relative bg-[#f8fbf9] pt-2 sm:pt-4 pb-14 md:pb-16 text-neutral-900 overflow-hidden">
       {/* --- BACKGROUND EFFECTS (Glow & Dot Matrix) --- */}
       {/* 1. Ambient Glow Accents */}
       <div className="absolute -top-24 right-1/4 w-[500px] h-[350px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />

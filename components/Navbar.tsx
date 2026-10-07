@@ -151,22 +151,22 @@ export default function Navbar() {
 
   return (
     <header className="bg-white sticky top-0 z-50 shadow-xs border-b border-neutral-100">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[74px] flex items-center justify-between">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[82px] sm:h-[88px] flex items-center justify-between">
         
-        {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
+        {/* Logo - Size Enlarge */}
+        <Link href="/" className="flex items-center flex-shrink-0 py-1">
           <Image
             src={headerData?.logoImage || headerData?.logo || "/logo.jpeg"}
             alt={common?.siteName || "PestControl"}
-            width={190}
-            height={48}
+            width={280}
+            height={76}
             priority
-            className="h-10 sm:h-11 w-auto object-contain"
+            className="h-14 sm:h-16 md:h-[68px] w-auto object-contain transition-all"
           />
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-[13.5px] font-black tracking-tight text-neutral-800">
+        <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-[13.5px] font-bold tracking-wider text-neutral-800">
           {menuList.map((item) => {
             if (item.children && item.children.length > 0) {
               const isChildActive = item.children.some(
@@ -177,7 +177,7 @@ export default function Navbar() {
               return (
                 <div
                   key={item.label}
-                  className="relative py-6 group"
+                  className="relative py-7 group"
                   onMouseEnter={() => setServicesDropdownOpen(true)}
                   onMouseLeave={() => setServicesDropdownOpen(false)}
                 >
@@ -186,22 +186,22 @@ export default function Navbar() {
                     tabIndex={0}
                     className={`flex items-center gap-1.5 py-1 select-none cursor-default transition ${
                       isActive || servicesDropdownOpen
-                        ? "text-[#00482B] font-black after:absolute after:bottom-3 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
+                        ? "text-[#00482B] after:absolute after:bottom-3 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
                         : "hover:text-[#00482B]"
                     }`}
                   >
                     <span>{item.label}</span>
                     <ChevronDown
                       size={14}
-                      strokeWidth={2.6}
+                      strokeWidth={2.2}
                       className={`transition-transform duration-200 ${
-                        servicesDropdownOpen ? "rotate-180 text-[#00482B]" : "text-neutral-700"
+                        servicesDropdownOpen ? "rotate-180 text-[#00482B]" : "text-neutral-600"
                       }`}
                     />
                   </div>
 
                   {servicesDropdownOpen && (
-                    <div className="absolute top-[68px] left-0 w-60 bg-white rounded-xl shadow-xl border border-neutral-100 py-2 z-50">
+                    <div className="absolute top-[76px] left-0 w-60 bg-white rounded-xl shadow-xl border border-neutral-100 py-2 z-50">
                       <Link
                         href={item.href}
                         className="block px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#00482B] bg-[#f0f8f4] hover:bg-[#e2f1ea] border-b border-neutral-100 transition"
@@ -233,7 +233,7 @@ export default function Navbar() {
                 href={item.href}
                 className={`transition py-1 relative ${
                   isActive
-                    ? "text-[#00482B] font-black after:absolute after:-bottom-2.5 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
+                    ? "text-[#00482B] after:absolute after:-bottom-2.5 after:left-0 after:w-full after:h-[2.5px] after:bg-[#00482B]"
                     : "hover:text-[#00482B]"
                 }`}
               >
@@ -245,12 +245,10 @@ export default function Navbar() {
 
         {/* Right Side Icons & Mobile Controls */}
         <div className="flex items-center gap-3">
-          {/* Desktop par sirf Social Icons dikhenge (Reference image jaisa) */}
           <div className="hidden lg:flex items-center">
             {renderSocialIcons()}
           </div>
 
-          {/* "Get a Quote" sirf phone/tablet par dikhega, desktop par hide rahega */}
           <Link
             href="/contact"
             className="lg:hidden inline-flex items-center justify-center bg-[#00482B] text-white text-xs font-bold px-3.5 py-1.5 rounded-full hover:bg-[#003822] transition shadow-xs whitespace-nowrap"
@@ -258,7 +256,6 @@ export default function Navbar() {
             Get a Quote
           </Link>
 
-          {/* Mobile Hamburger Toggle Button */}
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -272,7 +269,7 @@ export default function Navbar() {
 
       </div>
 
-      {/* Mobile Drawer Menu (Phone view par khulne wala menu) */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-neutral-200 px-6 py-4 flex flex-col gap-3 shadow-lg">
           {menuList.map((item) => {

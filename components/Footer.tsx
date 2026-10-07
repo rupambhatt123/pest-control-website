@@ -10,13 +10,11 @@ export default function Footer() {
   const pestControl =
     (siteData as any).categories?.PestControl || (siteData as any).PestControl || {};
   const footerData = pestControl?.sections?.Footer?.variants?.PestFooter1 || {};
-  const headerData = pestControl?.sections?.Header?.variants?.PestHeader1 || {};
   const servicesData =
     pestControl?.sections?.Services?.variants?.PestServices1 ||
     pestControl?.sections?.ServicesGrid?.variants?.PestServicesGrid1 ||
     {};
 
-  // Dynamic Content with safe fallbacks
   const aboutText =
     footerData?.about ||
     footerData?.description ||
@@ -30,17 +28,16 @@ export default function Footer() {
     footerData?.copyright ||
     `© 2026 ${common?.siteName || "PestControl"}. All Rights Reserved.`;
 
-  // Dynamic quick links
   const quickLinks = [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Blog", href: "/blog" },
     { label: "Gallery", href: "/gallery" },
+    { label: "FAQ", href: "/faq" },
     { label: "Contact Us", href: "/contact" },
   ];
 
-  // Dynamic services fetched from JSON or fallback
   const servicesList: Array<{ name: string; slug: string }> =
     servicesData?.services ||
     servicesData?.items || [
@@ -60,22 +57,21 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#0b0c0c] text-white pt-16 pb-8 border-t border-neutral-800">
+    <footer className="relative bg-[#003822] text-white pt-12 pb-8 overflow-hidden border-t border-[#00482B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-neutral-800/80">
           
-          {/* Column 1: Brand Logo & Dynamic About */}
+          {/* Column 1: Brand Logo & About */}
           <div className="lg:col-span-4 flex flex-col items-start pr-0 lg:pr-6">
             <Link href="/" className="mb-6 inline-block">
-              <div className="relative mix-blend-screen">
+              <div className="inline-flex items-center justify-center bg-[#eef9f3] px-4 py-2 rounded-2xl border border-[#3fd080]/30 shadow-xs">
                 <Image
                   src="/logo.jpeg"
                   alt={common?.siteName || "PestControl"}
-                  width={220}
-                  height={55}
-                  className="h-11 sm:h-12 w-auto object-contain filter invert hue-rotate-180 brightness-125 saturate-[220%] contrast-[130%]"
-                  unoptimized
+                  width={280}
+                  height={76}
                   priority
+                  className="h-14 sm:h-16 md:h-[68px] w-auto object-contain brightness-125 contrast-125 [filter:drop-shadow(0_0_1px_rgba(255,255,255,0.2))]"
                 />
               </div>
             </Link>
@@ -155,7 +151,6 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col gap-5 text-sm">
-              {/* Location */}
               {locationText && (
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-full bg-[#3fd080] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -167,7 +162,6 @@ export default function Footer() {
                 </div>
               )}
 
-              {/* Phone */}
               {phoneText && (
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-full bg-[#3fd080] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -182,7 +176,6 @@ export default function Footer() {
                 </div>
               )}
 
-              {/* Email */}
               {emailText && (
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-full bg-[#3fd080] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -201,14 +194,13 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar: Copyright, Social Icons & Scroll Top Button */}
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs sm:text-sm text-neutral-400">
             {copyrightText}
           </p>
 
           <div className="flex items-center gap-3">
-            {/* Facebook */}
             <a
               href={common?.socialLinks?.facebook || "https://facebook.com"}
               target="_blank"
@@ -221,7 +213,6 @@ export default function Footer() {
               </svg>
             </a>
 
-            {/* Instagram */}
             <a
               href={common?.socialLinks?.instagram || "https://instagram.com"}
               target="_blank"
@@ -245,7 +236,6 @@ export default function Footer() {
               </svg>
             </a>
 
-            {/* WhatsApp */}
             <a
               href={`https://wa.me/${String(phoneText || common?.phone || "").replace(/[^0-9]/g, "")}`}
               target="_blank"
@@ -267,7 +257,6 @@ export default function Footer() {
               </svg>
             </a>
 
-            {/* Scroll To Top Button */}
             <button
               onClick={scrollToTop}
               type="button"

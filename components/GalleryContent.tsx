@@ -91,7 +91,6 @@ export default function Gallery() {
             activeFilter.toLowerCase().trim()
         );
 
-  // Phone view swipe detect karke sliding dot synchronize karega
   const handleScroll = () => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -100,7 +99,6 @@ export default function Gallery() {
     }
   };
 
-  // Dot click hone par exact card tak smooth slide karega
   const scrollToCard = (index: number) => {
     if (scrollRef.current) {
       const width = scrollRef.current.clientWidth;
@@ -121,9 +119,7 @@ export default function Gallery() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] py-14 sm:py-20 md:py-24 overflow-hidden text-neutral-900">
-      
-      {/* Background Ambient Glow & Dot Matrix Pattern */}
+    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">      
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -right-24 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#3fd080]/12 rounded-full blur-[100px] pointer-events-none" />
@@ -136,28 +132,23 @@ export default function Gallery() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-8 md:mb-12">
-          {/* Pill Badge */}
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[14px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
+        <div className="flex flex-col items-center text-center mb-6 sm:mb-8 max-w-3xl">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
             {badge}
           </div>
 
-          {/* Heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black text-neutral-900 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black text-neutral-900 tracking-tight leading-[1.2]">
             Our Work in <span className="text-[#00482B]">Action</span>
           </h2>
 
-          {/* Description */}
-          <p className="mt-3 text-neutral-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+          <p className="mt-3 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
             {desc}
           </p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-4 md:pb-0 md:justify-center scrollbar-none mb-8 md:mb-12 -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-2 md:pb-0 justify-center scrollbar-none mb-8 md:mb-10 w-full px-2">
           {filters.map((tab) => {
             const isSelected = activeFilter === tab.value;
             return (
@@ -176,15 +167,10 @@ export default function Gallery() {
           })}
         </div>
 
-        {/* 
-          Gallery Cards Wrapper:
-          - Phone: single card snap-scroll (full width)
-          - Tablet / Desktop: 2-column & 3-column grid
-        */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 pb-2 md:pb-0 snap-x snap-mandatory scrollbar-none"
+          className="w-full flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 pb-2 md:pb-0 snap-x snap-mandatory scrollbar-none"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {filteredItems.map((item) => (
@@ -193,8 +179,6 @@ export default function Gallery() {
               className="w-full min-w-full md:w-auto md:min-w-0 flex-shrink-0 md:flex-shrink snap-center"
             >
               <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-black/5 relative h-[390px] sm:h-[420px] group transition-all duration-300 flex flex-col justify-end p-6 sm:p-7">
-                
-                {/* Background Image */}
                 <Image
                   src={item.image}
                   alt={item.alt}
@@ -203,10 +187,8 @@ export default function Gallery() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
 
-                {/* Dark Gradient Overlay for Contrast */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
 
-                {/* Content Overlay */}
                 <div className="relative z-20 flex flex-col gap-2">
                   <span className="text-[#3fd080] text-xs font-black uppercase tracking-wider">
                     {item.category}
@@ -227,7 +209,6 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Mobile View Sliding Indicator Dots */}
         {filteredItems.length > 1 && (
           <div className="flex md:hidden items-center justify-center gap-2 mt-6">
             {filteredItems.map((_, dotIdx) => (

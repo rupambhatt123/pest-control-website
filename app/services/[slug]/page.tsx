@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, Phone, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ChevronRight, Phone, ShieldCheck, CheckCircle2, Sparkles } from "lucide-react";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import PageBanner from "@/components/PageBanner";
@@ -90,13 +90,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         ]}
       />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
+      {/* Standardized Spacing: pt-4 sm:pt-6 md:pt-8 to eliminate empty gap */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-4 sm:pt-6 md:pt-8 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Main Left Content Area */}
-          <div className="lg:col-span-8 flex flex-col gap-10">
+          <div className="lg:col-span-8 flex flex-col gap-8">
             {/* Hero Image */}
-            <div className="relative w-full h-[360px] sm:h-[440px] rounded-3xl overflow-hidden shadow-lg border border-neutral-100 group">
+            <div className="relative w-full h-[360px] sm:h-[440px] rounded-3xl overflow-hidden shadow-md border border-neutral-100 group">
               <img
                 src={currentService.image}
                 alt={currentService.name}
@@ -105,24 +106,38 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>
 
-            {/* Key Benefits Card */}
-            <div className="bg-[#f5faf7] border border-[#d6ecdf] rounded-3xl p-8 md:p-10 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-44 h-44 bg-[#3fd080]/10 rounded-full blur-2xl pointer-events-none" />
-              
-              <div className="flex items-center gap-3 mb-7">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#00482B] animate-pulse" />
-                <h3 className="text-xl sm:text-2xl font-black text-[#003822] tracking-tight">
-                  Key Service Benefits
-                </h3>
+            {/* High-Emphasis Key Benefits Card */}
+            <div className="relative rounded-3xl p-6 sm:p-8 md:p-9 bg-gradient-to-br from-[#eef9f3] via-[#f4fbf7] to-[#e4f4ec] border-2 border-[#3fd080]/60 shadow-lg overflow-hidden">
+              {/* Mint ambient glow */}
+              <div className="absolute -top-16 -right-16 w-52 h-52 bg-[#3fd080]/25 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-[#00482B]/10 rounded-full blur-2xl pointer-events-none" />
+
+              {/* Card Header with Glowing Icon Badge */}
+              <div className="relative z-10 flex items-center gap-3.5 mb-6">
+                <div className="w-10 h-10 rounded-2xl bg-[#003822] text-[#3fd080] flex items-center justify-center shadow-md flex-shrink-0">
+                  <Sparkles size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <span className="text-[11px] font-black uppercase tracking-wider text-[#00482B] block">
+                    Why Choose This Solution
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-[#003822] tracking-tight">
+                    Key Service Benefits
+                  </h3>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+              {/* Benefit Cards Grid */}
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                 {currentService.keyBenefits?.map((benefit: string, idx: number) => (
-                  <div key={idx} className="flex items-start gap-3.5 group">
-                    <div className="w-5 h-5 rounded-full bg-[#00482B] text-[#3fd080] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
-                      <CheckCircle2 size={14} strokeWidth={2.8} />
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3 bg-white/95 backdrop-blur-xs p-4 rounded-2xl border border-[#3fd080]/30 shadow-xs hover:shadow-md hover:border-[#3fd080]/60 transition-all duration-200"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-[#003822] text-[#3fd080] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                      <CheckCircle2 size={16} strokeWidth={2.6} />
                     </div>
-                    <p className="text-[15px] font-semibold text-neutral-800 leading-snug">
+                    <p className="text-[14px] sm:text-[15px] font-bold text-neutral-800 leading-snug">
                       {benefit}
                     </p>
                   </div>
@@ -131,15 +146,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </div>
 
             {/* Service Deep Dive Text */}
-            <div className="flex flex-col gap-5">
-              <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight leading-tight">
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-neutral-900 tracking-tight leading-tight">
                 {currentService.heading}
               </h2>
               <p className="text-neutral-700 text-base sm:text-lg font-medium leading-relaxed">
                 {currentService.desc1}
               </p>
               {currentService.desc2 && (
-                <p className="text-neutral-600 text-base leading-relaxed">
+                <p className="text-neutral-600 text-sm sm:text-base leading-relaxed">
                   {currentService.desc2}
                 </p>
               )}
@@ -147,7 +162,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </div>
 
           {/* Right Sticky Sidebar */}
-          <div className="lg:col-span-4 lg:sticky lg:top-28 flex flex-col gap-8">
+          <div className="lg:col-span-4 lg:sticky lg:top-24 flex flex-col gap-6 self-start">
             
             {/* All Services Navigation Box */}
             <div className="bg-[#003822] rounded-3xl p-6 sm:p-7 shadow-xl border border-white/10">
@@ -183,31 +198,31 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </div>
 
             {/* Quick Contact CTA Card */}
-            <div className="relative rounded-3xl p-8 text-white text-center shadow-xl overflow-hidden bg-gradient-to-b from-[#003822] to-[#04281a] border border-white/10">
+            <div className="relative rounded-3xl p-6 sm:p-7 text-white text-center shadow-xl overflow-hidden bg-gradient-to-b from-[#003822] to-[#04281a] border border-white/10">
               <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#3fd080]/20 rounded-full blur-2xl pointer-events-none" />
 
-              <div className="w-12 h-12 rounded-2xl bg-[#3fd080]/20 border border-[#3fd080]/40 flex items-center justify-center mx-auto mb-4 text-[#3fd080]">
-                <ShieldCheck size={26} />
+              <div className="w-11 h-11 rounded-2xl bg-[#3fd080]/20 border border-[#3fd080]/40 flex items-center justify-center mx-auto mb-3.5 text-[#3fd080]">
+                <ShieldCheck size={24} />
               </div>
 
-              <p className="text-xs font-black uppercase tracking-widest text-[#3fd080] mb-1">
+              <p className="text-[11px] font-black uppercase tracking-widest text-[#3fd080] mb-1">
                 Emergency Support
               </p>
               
-              <h4 className="text-2xl font-black tracking-tight mb-3">
+              <h4 className="text-xl sm:text-2xl font-black tracking-tight mb-2.5">
                 Need {currentService.name}?
               </h4>
 
-              <p className="text-xs sm:text-sm text-neutral-300 font-medium mb-6">
+              <p className="text-xs sm:text-[13px] text-neutral-300 font-medium mb-5">
                 Get an instant inspection scheduled with our certified specialists.
               </p>
 
               <a
                 href={`tel:${cleanPhone}`}
-                className="w-full inline-flex items-center justify-center gap-2.5 bg-[#3fd080] hover:bg-[#34b66f] text-black font-black text-base py-3.5 px-6 rounded-2xl shadow-lg transition-transform duration-200 active:scale-95"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#3fd080] hover:bg-[#34b66f] text-black font-black text-sm sm:text-base py-3 px-5 rounded-2xl shadow-lg transition-transform duration-200 active:scale-95"
               >
-                <Phone size={18} strokeWidth={2.5} />
-                <span>{rawPhone}</span>
+                <Phone size={17} strokeWidth={2.5} />
+                <span className="truncate">{rawPhone}</span>
               </a>
             </div>
 

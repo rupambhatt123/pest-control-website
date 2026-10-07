@@ -26,7 +26,6 @@ export default function Blog() {
     pestControl?.sections?.Blogs?.variants?.PestBlogs1 ||
     {};
 
-  // JSON se dynamic Badge, Heading aur Description read karega
   const badge = blogData.pretitle || blogData.badge || "BLOG";
   const title = blogData.title || "Latest Insights & Tips on Pest Control";
   const desc =
@@ -34,7 +33,6 @@ export default function Blog() {
     blogData.description ||
     "Stay informed with expert tips, guides, and updates to keep your home and workplace pest-free.";
 
-  // Reference wale exact 6 default items fallback ke liye
   const fallbackPosts: BlogPost[] = [
     {
       title: "10 Expert Tips to Keep Your Home Pest-Free All Year Round",
@@ -68,11 +66,9 @@ export default function Blog() {
     },
   ];
 
-  // 1. JSON se direct posts array uthayega
   const rawPosts: any[] =
     blogData.posts || blogData.items || blogData.blogItems || [];
 
-  // 2. Agar JSON me items hain toh unko format karega, nahi toh fallback use karega
   const posts: BlogPost[] =
     rawPosts.length > 0
       ? rawPosts.slice(0, 6).map((item, idx) => ({
@@ -92,18 +88,14 @@ export default function Blog() {
   const [dotsCount, setDotsCount] = useState(posts.length);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Dots calculate karega: Desktop par 3 cards per view, Mobile par 1 card per view
   useEffect(() => {
     const updateDots = () => {
       if (typeof window !== "undefined") {
         if (window.innerWidth >= 1024) {
-          // Desktop: 3 cards ek view me
           setDotsCount(Math.max(1, Math.ceil(posts.length / 3)));
         } else if (window.innerWidth >= 768) {
-          // Tablet: 2 cards ek view me
           setDotsCount(Math.max(1, Math.ceil(posts.length / 2)));
         } else {
-          // Phone: 1 card ek view me
           setDotsCount(posts.length);
         }
       }
@@ -114,7 +106,6 @@ export default function Blog() {
     return () => window.removeEventListener("resize", updateDots);
   }, [posts.length]);
 
-  // Scroll detect karke active dot update karega
   const handleScroll = () => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -123,7 +114,6 @@ export default function Blog() {
     }
   };
 
-  // Dot click hone par smooth scroll karega
   const scrollToSlide = (index: number) => {
     if (scrollRef.current) {
       const width = scrollRef.current.clientWidth;
@@ -136,9 +126,7 @@ export default function Blog() {
   };
 
   return (
-    <section className="relative bg-[#f8fbf9] py-16 md:py-20 text-neutral-900 overflow-hidden">
-      
-      {/* Background Ambient Glow & Dot Matrix Pattern */}
+    <section className="relative bg-[#f8fbf9] py-12 md:py-16 px-5 sm:px-8 md:px-12 text-neutral-900 overflow-hidden">
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[#3fd080]/15 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 -right-24 w-80 h-80 bg-[#00482B]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#3fd080]/12 rounded-full blur-[100px] pointer-events-none" />
@@ -151,18 +139,13 @@ export default function Blog() {
         }}
       />
 
-      {/* Container Locked to max-w-[1240px] */}
-      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6">
-        
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-10 md:mb-12">
-          {/* Badge */}
-          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-sm sm:text-[14px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-4 shadow-xs">
+      <div className="relative z-10 max-w-[1240px] mx-auto flex flex-col items-center px-4 sm:px-6">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-10 max-w-3xl">
+          <div className="inline-block bg-[#d4ece0] text-[#00482B] text-xs sm:text-[13px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-3.5 shadow-xs">
             {badge}
           </div>
 
-          {/* Heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-[40px] lg:text-[42px] font-black tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-black tracking-tight text-neutral-900 leading-[1.2]">
             {title.includes("Pest Control") ? (
               <>
                 {title.split("Pest Control")[0]}
@@ -174,22 +157,15 @@ export default function Blog() {
             )}
           </h2>
 
-          {/* Subtitle / Description */}
-          <p className="mt-3.5 text-neutral-600 text-base sm:text-[17px] font-medium max-w-2xl leading-relaxed">
+          <p className="mt-3 text-neutral-600 text-sm sm:text-base leading-relaxed font-normal">
             {desc}
           </p>
         </div>
 
-        {/* 
-          Cards Wrapper:
-          - Phone: Exactly 1 card full width (min-w-full snap-start)
-          - Tablet: 2 cards (md:w-[calc(50%-12px)])
-          - Desktop: Exactly 3 cards (lg:w-[calc((100%-48px)/3)])
-        */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-none"
+          className="w-full flex gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-none"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {posts.map((post, idx) => {
@@ -205,7 +181,6 @@ export default function Blog() {
                   href={postLink}
                   className="group relative rounded-3xl overflow-hidden h-[410px] sm:h-[430px] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 sm:p-7 border border-black/5 block"
                 >
-                  {/* Background Image */}
                   <Image
                     src={post.image || fallbackPosts[idx % fallbackPosts.length].image!}
                     alt={post.title}
@@ -214,23 +189,20 @@ export default function Blog() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
 
-                  {/* Dark Gradient Overlay for Contrast */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10" />
 
-                  {/* Card Content */}
                   <div className="relative z-20 flex flex-col justify-end w-full">
                     <h3 className="text-white text-[19px] sm:text-[21px] font-black leading-snug tracking-tight mb-4 group-hover:text-[#3fd080] transition-colors line-clamp-3">
                       {post.title}
                     </h3>
 
-                    {/* Subtle Divider Line */}
                     <div className="w-full h-[1px] bg-white/20 mb-3.5" />
 
-                    {/* Action Link: Read More */}
                     <div className="inline-flex items-center gap-2 text-sm sm:text-[14.5px] font-bold text-white group-hover:text-[#3fd080] transition-colors">
                       <span>Read More</span>
                       <ArrowRight
                         size={16}
+                        strokeWidth={2.5}
                         className="group-hover:translate-x-1.5 transition-transform"
                       />
                     </div>
@@ -241,9 +213,8 @@ export default function Blog() {
           })}
         </div>
 
-        {/* Scroll Indicator Dots (Phone par 1-by-1, Desktop par 3-card slide) */}
         {dotsCount > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-7">
+          <div className="flex items-center justify-center gap-2 mt-6">
             {Array.from({ length: dotsCount }).map((_, dotIdx) => (
               <button
                 key={dotIdx}
@@ -258,7 +229,6 @@ export default function Blog() {
             ))}
           </div>
         )}
-
       </div>
     </section>
   );
